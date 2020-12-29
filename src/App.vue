@@ -11,31 +11,15 @@
     </v-text-field>
   </div>
       <h4 class="title is-4"> Мои задачи: </h4>
-      <ol v-on:click="deleteItem">
-        <v-card default                
-                elevation="2"                
-                color="primary" 
-                v-for="(item, index) in list" 
-                :key="index"
-                :id="index"                               
-        >
-          <v-checkbox v-model="item.status"
-                      :color="item && 'green' || 'primary'"                       
-          ></v-checkbox>            
-          <p :class="item.status && 'green--text'">                                             
-            {{item.task}} 
-          </p>
-          <v-btn class="icon"
-                 depressed
-                 v-on="on"                                 
-          >
-            <v-icon v-if="item.status"
-                    color="success"
-            > mdi-check
-            </v-icon>
-            <v-icon >{{ svgPath }}</v-icon>
-          </v-btn>          
-        </v-card>      
+      <ol >
+          <TodoItem
+            v-for="(item, index) in list"
+            v-bind:task="item.task"
+            v-bind:status="item.status"
+            v-bind:key="index"
+            v-bind:id="index"
+            @toDeleteItem = "deleteItem(index)"            
+          />   
       </ol>
   </div>
   
@@ -43,11 +27,14 @@
 </template>
 
 <script>
-import { mdiDelete  } from '@mdi/js'
+import TodoItem from './components/TodoItem'
 
 
 export default {
   name: 'App',
+  components: {
+    TodoItem,
+  },
     data: () => ({        
         list: [
           {
@@ -61,7 +48,6 @@ export default {
             date: new Date()
           }
         ],
-        svgPath: mdiDelete,
         message: null,
       }),         
     methods:{
@@ -75,13 +61,10 @@ export default {
           this.message = null;
         }        
       },
-      deleteItem(e) {
-        if(e.target.closest("button")){
-          const index = e.target.closest("div").getAttribute("id");                  
-          this.list.splice(index, 1);       
-        }          
-      }
-    }
+      deleteItem(index) {                      
+          this.list.splice(index, 1);             
+      },
+    },
 };
 </script>
 
@@ -108,7 +91,5 @@ export default {
   }
   .titel_text {
     width: 80%;
-
   }
-
 </style>
