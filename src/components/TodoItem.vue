@@ -1,14 +1,15 @@
 <template> 
     <v-card default                
             elevation="2"                
-            color="primary"                                                      
+            :color='category === "Семья" && "primary" || category === "Работа" && "warning" || "purple" '        
     >
       <v-checkbox v-model="status"
                   :color="status && 'green' || 'primary'"                       
       ></v-checkbox>            
       <p :class="status && 'green--text'">                                             
-        {{task}} 
+        {{task}}
       </p>
+     <span class="tag is-light">{{category}}</span>
       <v-btn class="icon"
             depressed 
             @click="toDelete"           
@@ -31,6 +32,7 @@ import { mdiDelete  } from '@mdi/js';
     props: {
       task: String,
       status: Boolean,
+      category: String,      
     },
     data: () => ({
       svgPath: mdiDelete,

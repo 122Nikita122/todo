@@ -9,13 +9,29 @@ export default new Vuex.Store({
             {
                 task:'Найти кота',
                 status: false,
-                date: new Date()
+                date: new Date(),
+                category: "Семья",
+                backround: "primary"                
               },
               {
                 task:'починить',
                 status: false,
-                date: new Date()
-              }
+                date: new Date(),
+                category: "Работа"
+              },
+              {
+                task:'починить',
+                status: false,
+                date: new Date(),
+                category: "Семья",
+                backround: "primary"
+              },
+              {
+                task:'починить',
+                status: false,
+                date: new Date(),
+                category: "Работа"
+              },
         ],
     },
     getters: {
@@ -25,10 +41,17 @@ export default new Vuex.Store({
         SET_TASK(state, item) {
             state.task.push(item);
         },
-        DEL_TASK(state, index) {
-            console.log('work')
+        DEL_TASK(state, index) {            
             state.task.splice(index, 1);
-        }
+        },
+        SORT_TASK(state, category) {
+            let newArr = [];
+            for( let task of state.task ){
+                if(task.category == category) newArr.unshift(task)
+                else newArr.push(task) 
+            }
+            state.task = newArr
+        },
     },
 });
 

@@ -1,13 +1,13 @@
 <template>
-    <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar">
-        <router-link class="navbar_item" to="/">
+    <div>
+        <div class="navbar is-flex is-justify-content-space-around">
+        <router-link class="item" to="/">
             home
         </router-link>
-        <router-link class="navbar_item" to="/todo">
+        <router-link class="item" to="/todo">
             todo
         </router-link>
-        <router-link class="navbar_item" to="/about">
+        <router-link class="item" to="/about">
             about
         </router-link>
         </div>
@@ -23,11 +23,9 @@ export default {
 
 <style>
   .navbar{
-    display: flex;
-    justify-content: space-around;
     margin-bottom: 15px;
   }
-  .navbar_item{
+  .item{
     color: black !important;
     text-decoration: none;
     font-size: 20px;
